@@ -1,30 +1,22 @@
-import './App.css'
+import './App.css';
 
-import React from 'react'
+import React from 'react';
+import { Route, Routes } from 'react-router';
 
-import logo from './logo.svg'
+import GlobalProviders from './GlobalProviders';
+import LoginPage from './pages/LoginPage';
+import QuoteListPage from './pages/QuoteListPage';
 
 function App() {
-  const a = 'adfadsfa'
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+    <GlobalProviders>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/quotes" element={<QuoteListPage />} />
+        {/* <Route path="/create-quote" element={<QuoteCreationPage />} /> */}
+      </Routes>
+    </GlobalProviders>
+  );
 }
 
-export default App
+export default App;
