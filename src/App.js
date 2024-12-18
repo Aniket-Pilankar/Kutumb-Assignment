@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router';
 
 import GlobalProviders from './GlobalProviders';
 import LoginPage from './pages/LoginPage';
+import QuoteCreationPage from './pages/QuoteCreationPage';
 import QuoteListPage from './pages/QuoteListPage';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/quotes" element={<QuoteListPage />} />
-        {/* <Route path="/create-quote" element={<QuoteCreationPage />} /> */}
+        <Route path="/create-quote" element={<QuoteCreationPage />} />
       </Routes>
     </GlobalProviders>
   );

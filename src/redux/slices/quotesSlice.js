@@ -17,6 +17,41 @@ export const fetchQuotes = createAsyncThunk(
   },
 );
 
+export const uploadFileGetMediaURL = createAsyncThunk(
+  'quotes/uploadFileGetMediaURL',
+  async (file, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await axiosInstance.post(
+        `https://crafto.app/crafto/v1.0/media/assignment/upload`,
+        formData,
+      );
+      console.log('response: uploadFileGetMediaURL', response);
+      return response.data[0].url;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const postQuote = createAsyncThunk(
+  'quotes/postQuote',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`https://assignment.stage.crafto.app/postQuote`, {
+        text: payload.newQuote,
+        mediaUrl: payload.fileURL,
+      });
+
+      return response;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  },
+);
+
 const quotesSlice = createSlice({
   name: 'quotes',
   initialState: {
