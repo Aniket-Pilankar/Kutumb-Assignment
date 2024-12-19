@@ -1,5 +1,8 @@
 # Quote Creation App
 
+Here is the deployed link of the project
+https://kutumb-app-indol.vercel.app/
+
 A simple web application to create and upload quotes with images using React and Redux.
 
 ---
