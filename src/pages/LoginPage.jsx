@@ -31,7 +31,10 @@ function LoginPage() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}
+    >
       <h1>Login</h1>
       <form action="" onSubmit={handleSubmit(onSubmit)}>
         <Controller

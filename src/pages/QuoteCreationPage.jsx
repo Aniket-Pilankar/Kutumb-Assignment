@@ -2,20 +2,33 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import { Button, Container, Snackbar, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Snackbar,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 import InputFileUpload from '../components/InputFileUpload';
 import { postQuote, uploadFileGetMediaURL } from '../redux/slices/quotesSlice';
 
 function QuoteCreationPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [newQuote, setNewQuote] = useState('');
   const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [fileUploaded, setFileUploaded] = useState(false);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setFileUploaded(true);
+    }
   };
 
   const handleClose = (event, reason) => {
@@ -42,6 +55,7 @@ function QuoteCreationPage() {
     }
 
     try {
+      setIsLoading(true);
       const fileURL = await dispatch(uploadFileGetMediaURL(file)).unwrap();
       console.log('fileURL:', fileURL);
 
@@ -53,13 +67,28 @@ function QuoteCreationPage() {
       }
     } catch (error) {
       console.error('Error submitting quote:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="sm">
-      <h1>Create Quote</h1>
-      <form onSubmit={handleSubmit}>
+    <Container maxWidth="sm" style={{ padding: '32px 16px' }}>
+      <Typography
+        variant="h5"
+        gutterBottom
+        align="center"
+        style={{ fontWeight: 'bold', marginBottom: '16px' }}
+      >
+        Create a New Quote
+      </Typography>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        display={'flex'}
+        flexDirection={'column'}
+        gap={2}
+      >
         <TextField
           label="Quote Text"
           value={newQuote}
@@ -67,11 +96,11 @@ function QuoteCreationPage() {
           fullWidth
           margin="normal"
         />
-        <InputFileUpload onChange={handleFileChange} />
+        <InputFileUpload onChange={handleFileChange} isdisabled={fileUploaded} />
         <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
-          Save Quote
+          {isLoading ? <CircularProgress size={24} style={{ color: 'white' }} /> : 'Save Quote'}
         </Button>
-      </form>
+      </Box>
       <Snackbar
         open={open}
         autoHideDuration={5000}

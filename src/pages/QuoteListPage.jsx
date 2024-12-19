@@ -47,12 +47,17 @@ function QuoteListPage() {
   const paginatedQuotes = quotes.slice((page - 1) * quotesPerPage, page * quotesPerPage);
 
   return (
-    <Container maxWidth="md">
-      <Typography variant="h4" gutterBottom>
+    <Container maxWidth="lg">
+      <Typography
+        variant="h4"
+        gutterBottom
+        align="center"
+        style={{ fontWeight: 'bold', color: '#3f51b5' }}
+      >
         Quotes
       </Typography>
       {loading ? (
-        <CircularProgress />
+        <CircularProgress style={{ display: 'block', margin: '24px auto' }} />
       ) : (
         <Grid container spacing={4}>
           {paginatedQuotes.map((quote) => (
@@ -68,13 +73,13 @@ function QuoteListPage() {
           page={page}
           onChange={handlePageChange}
           color="primary"
-          style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}
+          style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}
         />
       )}
       <Fab
         color="primary"
         onClick={() => navigate('/create-quote')}
-        style={{ position: 'fixed', bottom: 16, right: 16 }}
+        style={{ position: 'fixed', bottom: 24, right: 24 }}
       >
         <AddIcon />
       </Fab>
