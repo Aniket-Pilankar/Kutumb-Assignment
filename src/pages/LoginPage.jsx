@@ -3,26 +3,34 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
+import { ErrorMessage } from '@hookform/error-message';
+import { joiResolver } from '@hookform/resolvers/joi';
 import { Button, Container, TextField } from '@mui/material';
 
 import { loginUser } from '../redux/slices/authSlice';
+import { loginValidation } from '../utils/validators';
 
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       username: '',
       otp: '',
     },
+    resolver: joiResolver(loginValidation),
+    mode: 'all',
   });
 
   const onSubmit = async (data) => {
     console.log('data:', data);
-    const { username, otp } = data;
     try {
-      dispatch(loginUser({ username, otp })).then((action) => {
+      dispatch(loginUser({ username: data.username, otp: data.otp.toString() })).then((action) => {
         if (action.type === 'auth/loginUser/fulfilled') navigate('/quotes');
       });
     } catch (error) {
@@ -51,11 +59,13 @@ function LoginPage() {
             />
           )}
         />
+        <ErrorMessage errors={errors} name="username" />
         <Controller
           name="otp"
           control={control}
           render={({ field }) => (
             <TextField
+              type="number"
               margin="normal"
               id="outlined-basic"
               label="Enter Otp"
@@ -65,6 +75,7 @@ function LoginPage() {
             />
           )}
         />
+        <ErrorMessage errors={errors} name="otp" />
         <Button variant="contained" color="primary" type="submit" fullWidth>
           Submit
         </Button>

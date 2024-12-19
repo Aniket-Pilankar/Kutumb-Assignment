@@ -6,6 +6,6 @@
 
 body {
   width: 100vw;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
   height: 100%;
 }

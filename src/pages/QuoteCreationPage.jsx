@@ -80,7 +80,7 @@ function QuoteCreationPage() {
         align="center"
         style={{ fontWeight: 'bold', marginBottom: '16px' }}
       >
-        Create a New Quote
+        CREATE A NEW QUOTE
       </Typography>
       <Box
         component="form"

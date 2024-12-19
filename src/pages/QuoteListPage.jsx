@@ -52,7 +52,7 @@ function QuoteListPage() {
         variant="h4"
         gutterBottom
         align="center"
-        style={{ fontWeight: 'bold', color: '#3f51b5' }}
+        style={{ fontWeight: 'bold', color: '#3f51b5', padding: '1rem' }}
       >
         Quotes
       </Typography>
@@ -73,7 +73,12 @@ function QuoteListPage() {
           page={page}
           onChange={handlePageChange}
           color="primary"
-          style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}
+          style={{
+            marginTop: '24px',
+            display: 'flex',
+            justifyContent: 'center',
+            paddingBottom: '1rem',
+          }}
         />
       )}
       <Fab
