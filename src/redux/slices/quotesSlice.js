@@ -9,7 +9,6 @@ export const fetchQuotes = createAsyncThunk(
       const response = await axiosInstance.get(
         `https://assignment.stage.crafto.app/getQuotes?limit=${limit}&offset=${offset}`,
       );
-      console.log('response:', response);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -28,7 +27,6 @@ export const uploadFileGetMediaURL = createAsyncThunk(
         `https://crafto.app/crafto/v1.0/media/assignment/upload`,
         formData,
       );
-      console.log('response: uploadFileGetMediaURL', response);
       return response.data[0].url;
     } catch (error) {
       rejectWithValue(error.response.data);

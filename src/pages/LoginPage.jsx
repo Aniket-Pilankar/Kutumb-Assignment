@@ -28,7 +28,6 @@ function LoginPage() {
   });
 
   const onSubmit = async (data) => {
-    console.log('data:', data);
     try {
       dispatch(loginUser({ username: data.username, otp: data.otp.toString() })).then((action) => {
         if (action.type === 'auth/loginUser/fulfilled') navigate('/quotes');

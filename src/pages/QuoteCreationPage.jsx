@@ -42,13 +42,11 @@ function QuoteCreationPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('newQuote:', newQuote);
     if (!newQuote.trim()) {
       alert('Quote text is required');
       return;
     }
 
-    console.log('file:', file);
     if (!file) {
       alert('File is required');
       return;
@@ -57,10 +55,8 @@ function QuoteCreationPage() {
     try {
       setIsLoading(true);
       const fileURL = await dispatch(uploadFileGetMediaURL(file)).unwrap();
-      console.log('fileURL:', fileURL);
 
       const response = await dispatch(postQuote({ newQuote, fileURL })).unwrap();
-      console.log('response:333312312312', response);
 
       if (response.status) {
         setOpen(true);
