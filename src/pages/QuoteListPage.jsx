@@ -17,6 +17,8 @@ function QuoteListPage() {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
+  const { token } = useSelector((state) => state.auth);
+
   const quotesPerPage = 12;
   const offset = 0;
 
@@ -45,6 +47,8 @@ function QuoteListPage() {
   };
 
   const paginatedQuotes = quotes.slice((page - 1) * quotesPerPage, page * quotesPerPage);
+
+  if (!token) navigate('/');
 
   return (
     <Container maxWidth="lg">

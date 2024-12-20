@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import {
@@ -16,12 +16,15 @@ import InputFileUpload from '../components/InputFileUpload';
 import { postQuote, uploadFileGetMediaURL } from '../redux/slices/quotesSlice';
 
 function QuoteCreationPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [newQuote, setNewQuote] = useState('');
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
+
+  const { token } = useSelector((state) => state.auth);
 
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
@@ -67,6 +70,8 @@ function QuoteCreationPage() {
       setIsLoading(false);
     }
   };
+
+  if (!token) navigate('/');
 
   return (
     <Container maxWidth="sm" style={{ padding: '32px 16px' }}>
